@@ -98,7 +98,7 @@ tabPanel("QC Plots",
 			wellPanel(
 			  tags$style(mycss),
 			  column(width=12,uiOutput("selectGroupSampleQC")),
-				conditionalPanel("input.groupplot_tabset=='PCA Plot' || input.groupplot_tabset=='PCA 3D Interactive' || input.groupplot_tabset=='PCA 3D Plot' || input.groupplot_tabset=='Sample-sample Distance' ",
+				conditionalPanel("input.groupplot_tabset=='PCA Plot' || input.groupplot_tabset=='PCA 3D Interactive' || input.groupplot_tabset=='PCA 3D Plot' || input.groupplot_tabset=='Sample-sample Distance' || input.groupplot_tabset=='Overall Expression Distribution Plot'",
 				                 selectInput("PCAcolorby", label="Color By", choices=NULL)),
 				conditionalPanel("input.groupplot_tabset=='PCA Plot' || input.groupplot_tabset=='PCA 3D Interactive'",
 				                 selectInput("PCAshapeby", label="Shape By", choices=NULL)),
@@ -200,6 +200,7 @@ tabPanel("QC Plots",
 				tabPanel(title="Dendrograms",actionButton("Dendrograms", "Save to output"), plotOutput("Dendrograms",height = 800)),
 				tabPanel(title="Box Plot", actionButton("QCboxplot", "Save to output"), plotOutput("QCboxplot",height = 800)),
 				tabPanel(title="CV Distribution", actionButton("histplot", "Save to output"), plotOutput("histplot",height = 800)),
+				tabPanel(title="Overall Expression Distribution Plot",actionButton("densityplot", "Save to output"), plotOutput("densityplot",height = 800)),
 				tabPanel(title="Help", htmlOutput('help_QC'))
 			)
 		)

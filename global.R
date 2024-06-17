@@ -62,6 +62,7 @@ suppressPackageStartupMessages({
   library(psych)
   library(broom)
   #library(DEGreport)
+  library(affy)
 })
 
 

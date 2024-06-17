@@ -897,3 +897,40 @@ observeEvent(input$covar_num, {
   data=PC_covariates_out()$sel_dataN
   saved_plots$covar_num<- data$plot
 })
+
+
+############densityplot
+densityplot_out <- reactive({
+  DataQC <-  DataQCReactive()
+  tmp_sampleid <- DataQC$tmp_sampleid
+  tmp_data_wide <- DataQC$tmp_data_wide
+  MetaData=DataQC$MetaData
+
+  selCol=which(names(MetaData)==input$PCAcolorby)
+  annotation=MetaData[, selCol, drop=F]
+  rownames(annotation) <- tmp_sampleid
+  
+  # Plot density
+  N_color <- setNames(1:length(unique(annotation[,1])),unique(annotation[,1]))
+  plotDensity(as.matrix(tmp_data_wide), lty=1, col=N_color[annotation[,1]], xlab="log2TPM")
+  
+  legend(x = 'topleft', 
+         legend = names(N_color),
+         lty = 1, 
+         col = N_color,
+         bty = "n",
+         xjust = 1)
+  res = recordPlot()
+  # Clear the Plot Window
+  plot.new()
+  return(res)
+})
+
+output$densityplot <- renderPlot({
+  densityplot_out()
+})
+
+observeEvent(input$densityplot, {
+  saved_plots$densityplot <- densityplot_out()
+}
+)
